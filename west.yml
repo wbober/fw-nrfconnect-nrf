@@ -29,6 +29,10 @@ manifest:
       url-base: https://github.com/ThrowTheSwitch
     - name: armmbed
       url-base: https://github.com/ARMmbed
+    - name: krknwk
+      url-base: https://projecttools.nordicsemi.no/bitbucket/scm/krknwk
+    - name: wbober
+      url-base: https://github.com/wbober
 
   # If not otherwise specified, the projects below should be obtained
   # from the ncs remote.
@@ -66,7 +70,6 @@ manifest:
           - civetweb
           - edtt
           - fatfs
-          - hal_nordic
           - hal_st
           - libmetal
           - littlefs
@@ -96,7 +99,11 @@ manifest:
       path: modules/lib/mcumgr
     - name: nrfxlib
       path: nrfxlib
-      revision: 778dc285adbaad5096c5aa3687cca7454e4da88a
+      revision: pull/166/head
+    - name: hal_nordic
+      path: modules/hal/nordic
+      remote: wbober
+      revision: add_ble_to_zigbee_light_switch
     # Other third-party repositories.
     - name: cmock
       path: test/cmock
