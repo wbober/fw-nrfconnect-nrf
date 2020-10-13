@@ -22,10 +22,7 @@
 #define PING_ECHO_REQUEST_BYTE        0xAB
 #define PING_ECHO_REPLY_BYTE          0xCD
 #define PING_ECHO_REQUEST_TIMEOUT_S   10
-#define PING_TABLE_SIZE               10
-
-/* Forward declarations. */
-struct ping_request;
+// #define PING_TABLE_SIZE               10
 
 /**@brief  Ping event type. Informs what kind of acknowledgment was received.
  */
@@ -57,28 +54,30 @@ enum ping_time_evt {
  * @param[in] evt           Type of received  ping acknowledgment
  * @param[in] delay_ms      Time, in miliseconds, between ping request
  *                          and the event.
- * @param[in] ping_req_ctx  Pointer to the ping request structure.
+ * @param[in] entry         Pointer to context manager entry in which the ping
+ *                          request data is stored.
  */
-typedef void (*ping_time_cb_t)(enum ping_time_evt evt, zb_uint32_t delay_ms,
-	      struct ping_request *ping_req_ctx);
+typedef void (*ping_time_cb)(enum ping_time_evt evt, zb_uint32_t delay_ms,
+			     struct ctx_entry *entry);
 
-/**@brief The row of the table which holds the requests which were sent.
- *
- * @details We compare the incoming responses with the rows contents
- *          to determine if it is the answer.
- *          The key parameter is the sequence number.
- */
-struct ping_request {
-	bool taken;
+/* Structure used to store PING request data in the context manager entry. */
+struct ping_req_data {
 	zb_uint8_t ping_seq;
 	zb_uint8_t request_ack;
 	zb_uint8_t request_echo;
 	zb_uint16_t count;
 	zb_uint16_t timeout_ms;
+	ping_time_cb cb;
 	volatile int64_t sent_time;
-	const struct shell *shell;
 	struct zcl_packet_info packet_info;
-	ping_time_cb_t cb;
+};
+
+/* Structure used to store PING reply data in the context manager entry. */
+struct ping_reply_data {
+	zb_uint8_t ping_seq;
+	zb_uint8_t count;
+	zb_uint8_t send_ack;
+	struct zcl_packet_info packet_info;
 };
 
 /**@brief Set ping request indication callback.
@@ -86,24 +85,6 @@ struct ping_request {
  * @note The @p cb argument delay_ms will reflect current time
  *       in miliseconds.
  */
-void zb_ping_set_ping_indication_cb(ping_time_cb_t cb);
-
-/**@brief Acquire ping request context.
- *
- * @return  Pointer to a free ping request context or NULL on failure.
- */
-struct ping_request *zb_ping_acquire_request(void);
-
-/**@brief Release ping request context.
- *
- * @param ping_reply_ctx Pointer to the context structure to release.
- */
-void zb_ping_release_request(struct ping_request *ping_reply_ctx);
-
-/**@brief Actually construct the Ping Request frame and send it.
- *
- * @param ping_req_ctx  Pointer to the ping request context structure.
- */
-void ping_request_send(struct ping_request *ping_req_ctx);
+void zb_ping_set_ping_indication_cb(ping_time_cb cb);
 
 #endif /* ZIGBEE_CLI_PING_H__ */
