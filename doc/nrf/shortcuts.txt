@@ -58,6 +58,8 @@
 .. |zigbee_description| replace:: Zigbee is a portable, low-power software networking protocol that provides connectivity over an 802.15.4-based mesh network.
 .. |enable_zigbee_before_testing| replace:: Make sure to enable the Zigbee stack before building and testing this sample.
    See :ref:`ug_zigbee` for more information.
+.. |building_nrf5340_overlay_note| replace:: To build the sample for the nRF5340 DK, use the :file:`overlay-nrf5340dk_nrf5340_cpuapp.conf` overlay file.
+   For more information about using configuration overlay files, see :ref:`zephyr:important-build-vars` in the Zephyr documentation.
 .. |zigbee_library| replace:: This is a Zigbee library.
    See :ref:`ug_zigbee_configuring_libraries` for information about how to configure it for you Zigbee application.
 

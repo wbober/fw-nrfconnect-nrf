@@ -24,7 +24,7 @@ The sample supports the following development kits:
 
 .. table-from-rows:: /includes/sample_board_rows.txt
    :header: heading
-   :rows: nrf52840dk_nrf52840, nrf52833dk_nrf52833
+   :rows: nrf52840dk_nrf52840, nrf52833dk_nrf52833, nrf5340dk_nrf5340_cpuapp
 
 You can use one of the development kits listed above.
 
@@ -57,6 +57,9 @@ Building and running
 |enable_zigbee_before_testing|
 
 .. include:: /includes/build_and_run.txt
+
+.. note::
+   |building_nrf5340_overlay_note|
 
 .. _zigbee_network_coordinator_sample_testing:
 
