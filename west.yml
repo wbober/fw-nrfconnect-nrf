@@ -33,6 +33,8 @@ manifest:
       url-base: https://github.com/nanopb
     - name: alexa
       url-base: https://github.com/alexa
+    - name: wbober
+      url-base: https://github.com/wbober
 
   # If not otherwise specified, the projects below should be obtained
   # from the ncs remote.
@@ -50,7 +52,8 @@ manifest:
     # https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/zephyr/guides/modules.html
     - name: zephyr
       repo-path: sdk-zephyr
-      revision: cdc4c217fbd0972a4270b4ca546f6d34bf5b120c
+      revision: nrf53_support
+      remote: wbober
       import:
         # In addition to the zephyr repository itself, NCS also
         # imports the contents of zephyr/west.yml at the above
@@ -102,7 +105,7 @@ manifest:
     - name: nrfxlib
       repo-path: sdk-nrfxlib
       path: nrfxlib
-      revision: 0ae93a2f7da1b65e8b0c1f61849b78910183fc32
+      revision: pull/339/head
     # Other third-party repositories.
     - name: cmock
       path: test/cmock
